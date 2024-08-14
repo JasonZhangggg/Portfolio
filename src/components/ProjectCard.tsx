@@ -1,22 +1,47 @@
+import { useState } from "react";
+import { TextBox } from "./TextBox";
+
 interface Props {
   title: string;
   description: string;
   image: string;
+  link: string;
+  apps: string[];
 }
 
-const ProjectCard = ({ title, description, image }: Props) => {
+const ProjectCard = ({ title, description, image, link, apps }: Props) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <div className="flex flex-col gap-12 group hover:cursor-pointer">
-      <h2 className="text-5xl font-extrabold mt-4 flex items-center gap-4 ">
+    <div className="flex flex-col gap-8">
+      <h2 className="text-5xl font-extrabold mt-4 flex items-center gap-4">
         {title}
+        <span
+          className={`material-symbols-outlined text-5xl transform duration-150 ${
+            isHovered
+              ? "translate-x-2 text-gray-600"
+              : "hover:translate-x-2 group-hover:text-gray-600"
+          }`}
+        >
+          arrow_forward
+        </span>
       </h2>
-      <p className="text-2xl text-gray-600">{description}</p>
-      <div className="flex flex-col gap-8 bg-lighter-gray p-8 rounded-xl overflow-hidden">
-        <img
-          src={image}
-          alt="Project Image"
-          className="flex-1 duration-300 transform group-hover:scale-[1.1]"
-        />
+      <div className="flex gap-4">
+        {apps.map((app) => (
+          <TextBox key={app} text={app} />
+        ))}
+      </div>
+      <p className="text-xl text-gray-600">{description}</p>
+      <div className="flex flex-col bg-lighter-gray p-8 rounded-xl overflow-hidden">
+        <a href={link} target="_blank" rel="noopener noreferrer">
+          <img
+            src={image}
+            alt="Project Image"
+            className="h-96 object-contain w-auto duration-300 transform hover:scale-[1.1]"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          />
+        </a>
       </div>
     </div>
   );

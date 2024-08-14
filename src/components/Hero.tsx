@@ -1,11 +1,9 @@
-import { Navbar } from "./Navbar";
 import { Reveal } from "./Reveal";
 
 const Hero = () => {
   return (
     <div className="px-[16svw]" id="About">
       <div className="h-screen bg-white">
-        <Navbar />
         <div className="w-full mt-4">
           <Reveal dir="x" once={true}>
             <h1 className="text-[18vw] font-extrabold text-light-gray leading-none">
