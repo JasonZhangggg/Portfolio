@@ -3,15 +3,15 @@ import { Reveal } from "./Reveal";
 const Hero = () => {
   return (
     <div className="px-[16svw]" id="About">
-      <div className="h-screen bg-white">
+      <div className="bg-white">
         <div className="w-full mt-4">
           <Reveal dir="x" once={true}>
-            <h1 className="text-[18vw] font-extrabold text-light-gray leading-none">
+            <h1 className="text-[14vw] font-extrabold text-light-gray leading-none">
               Hello!
             </h1>
           </Reveal>
           <Reveal dir="y" delay={0.75} once={true}>
-            <div className="ml-3 -mt-32 text-[10vw] tracking-tight font-extrabold text-black leading-none">
+            <div className="ml-3 -mt-[7.5vw] text-[8vw] tracking-tight font-extrabold text-black leading-none">
               <h1>I'm Jason</h1>
             </div>
           </Reveal>
@@ -23,7 +23,7 @@ const Hero = () => {
             </p>
           </Reveal>
           <div className="flex justify-center mt-12">
-            <span className="material-symbols-outlined text-6xl ml-[5vw] animate-bounce">
+            <span className="material-symbols-outlined text-6xl pb-20 ml-[5vw] animate-bounce">
               keyboard_arrow_down
             </span>
           </div>

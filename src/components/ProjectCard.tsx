@@ -1,15 +1,15 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { TextBox } from "./TextBox";
 
 interface Props {
+  children: React.ReactNode;
   title: string;
-  description: string;
   image: string;
   link: string;
   apps: string[];
 }
 
-const ProjectCard = ({ title, description, image, link, apps }: Props) => {
+const ProjectCard = ({ children, title, image, link, apps }: Props) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -31,7 +31,7 @@ const ProjectCard = ({ title, description, image, link, apps }: Props) => {
           <TextBox key={app} text={app} />
         ))}
       </div>
-      <p className="text-xl text-gray-600">{description}</p>
+      <p className="text-lg text-gray-600">{children}</p>
       <div className="flex flex-col bg-lighter-gray p-8 rounded-xl overflow-hidden">
         <a href={link} target="_blank" rel="noopener noreferrer">
           <img

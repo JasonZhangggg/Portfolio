@@ -29,24 +29,33 @@ const Projects = () => {
             <Reveal dir="y" delay={0.25}>
               <ProjectCard
                 title="Admin Dashboard"
-                description="Web application that streamlines the collection, collation, and analysis
-              of audience evaluations for student presentations, providing efficient
-              feedback mechanisms for grading and peer insights."
                 image={Admin1}
                 link="https://mysite-io31.onrender.com/"
                 apps={["Ruby on Rails", "SQLite"]}
-              />
+              >
+                <p>
+                  Web application that streamlines the collection, collation,
+                  and analysis of audience evaluations for student
+                  presentations, providing efficient feedback mechanisms for
+                  grading and peer insights.
+                </p>
+                <span className="text-red-600 font-medium">
+                  Note: Page will take about 1 min to start
+                </span>
+              </ProjectCard>
             </Reveal>
             <Reveal dir="y">
               <ProjectCard
                 title="Admin Dashboard"
-                description="Web application that streamlines the collection, collation, and analysis
-              of audience evaluations for student presentations, providing efficient
-              feedback mechanisms for grading and peer insights."
                 image={Admin1}
                 link="https://mysite-io31.onrender.com/"
                 apps={["Ruby on Rails", "SQLite"]}
-              />
+              >
+                Web application that streamlines the collection, collation, and
+                analysis of audience evaluations for student presentations,
+                providing efficient feedback mechanisms for grading and peer
+                insights.
+              </ProjectCard>
             </Reveal>
           </div>
           <div id="Play"></div>
