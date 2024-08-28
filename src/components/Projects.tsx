@@ -69,8 +69,8 @@ const Projects = () => {
                 </span>
               </ProjectCard>
             </Reveal>
+            <div id="Play"></div>
           </div>
-          <div id="Play"></div>
           <Reveal dir="y">
             <div className="flex flex-col gap-12">
               <Reveal dir="y">
