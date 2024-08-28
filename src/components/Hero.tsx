@@ -23,9 +23,12 @@ const Hero = () => {
             </p>
           </Reveal>
           <div className="flex justify-center mt-12">
-            <span className="material-symbols-outlined text-6xl pb-20 ml-[5vw] animate-bounce">
+            <a
+              href="#Projects"
+              className="material-symbols-outlined text-6xl pb-20 ml-[5vw] animate-bounce"
+            >
               keyboard_arrow_down
-            </span>
+            </a>
           </div>
         </div>
       </div>

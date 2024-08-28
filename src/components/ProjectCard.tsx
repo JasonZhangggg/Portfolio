@@ -32,7 +32,7 @@ const ProjectCard = ({ children, title, image, link, apps }: Props) => {
         ))}
       </div>
       <p className="text-lg text-gray-600">{children}</p>
-      <div className="flex flex-col bg-lighter-gray p-8 rounded-xl overflow-hidden">
+      <div className="flex flex-col bg-lighter-gray p-8 rounded-xl overflow-hidden justify-center items-center">
         <a href={link} target="_blank" rel="noopener noreferrer">
           <img
             src={image}

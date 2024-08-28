@@ -1,5 +1,6 @@
 import ProjectCard from "./ProjectCard";
 import Admin1 from "../assets/Projects/Admin1.png";
+import Colorize from "../assets/Projects/Gray2Color.png";
 import Calculator from "../assets/Playground/Calculator.png";
 import EtchASketch from "../assets/Playground/EtchASketch.png";
 import GameOfSet from "../assets/Playground/GameOfSet.png";
@@ -26,7 +27,31 @@ const Projects = () => {
         </div>
         <div>
           <div className="flex flex-col gap-28 mb-24">
-            <Reveal dir="y" delay={0.25}>
+            <Reveal dir="y">
+              <ProjectCard
+                title="Black and White Image Colorization"
+                image={Colorize}
+                link="https://huggingface.co/spaces/Jasonzhangggg/Gray2Color"
+                apps={["PyTorch", "Hugging Face", "Colab"]}
+              >
+                <p>
+                  Built a generative adversarial network utilizing a U-Net with
+                  a ResNet backbone as the generator to achieve realistic
+                  colorization of grayscale images. Pretrained generator,
+                  accelerating convergence and improving initial colorization
+                  quality. Deployed model on Hugging Face Spaces.
+                </p>
+                <a
+                  href="https://colab.research.google.com/drive/1XSbTB-c6jVikcu5BIpKcwsSzPRlseBEa?usp=sharing"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium underline"
+                >
+                  View Colab Notebook
+                </a>
+              </ProjectCard>
+            </Reveal>
+            <Reveal dir="y">
               <ProjectCard
                 title="Admin Dashboard"
                 image={Admin1}
@@ -42,19 +67,6 @@ const Projects = () => {
                 <span className="text-red-600 font-medium">
                   Note: Page will take about 1 min to start
                 </span>
-              </ProjectCard>
-            </Reveal>
-            <Reveal dir="y">
-              <ProjectCard
-                title="Admin Dashboard"
-                image={Admin1}
-                link="https://mysite-io31.onrender.com/"
-                apps={["Ruby on Rails", "SQLite"]}
-              >
-                Web application that streamlines the collection, collation, and
-                analysis of audience evaluations for student presentations,
-                providing efficient feedback mechanisms for grading and peer
-                insights.
               </ProjectCard>
             </Reveal>
           </div>

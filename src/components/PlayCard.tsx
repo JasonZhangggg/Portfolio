@@ -30,7 +30,7 @@ const PlayCard = ({ title, image, link, apps }: Props) => {
           <TextBoxSmall key={app} text={app} />
         ))}
       </div>
-      <div className="flex flex-col gap-8 bg-lighter-gray p-4 h-92 rounded-xl overflow-hidden">
+      <div className="flex flex-col gap-8 bg-lighter-gray p-4 h-92 rounded-xl overflow-hidden justify-center items-center">
         <a href={link} target="_blank" rel="noopener noreferrer">
           <img
             src={image}
