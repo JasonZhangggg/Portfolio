@@ -13,7 +13,7 @@ export const Navbar = () => {
           />
           <NavItem
             title="Resume"
-            link="https://drive.google.com/file/d/1CU9yq_NGcLe1ur0iS_aQateZ54lejB9-/view?usp=sharing"
+            link="https://drive.google.com/file/d/1Bz5FL15ggsrPFi1-UWeZ0HRecDpihovq/view?usp=sharing"
           />
         </ul>
       </nav>
