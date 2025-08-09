@@ -19,7 +19,7 @@ const Hero = () => {
             <hr className="ml-4 sm:ml-6 my-8 sm:my-12 md:my-16 border-b-[1.2px] border-gray-600 w-32 sm:w-48 md:w-[15vw]" />
             <p className="ml-4 sm:ml-6 text-lg sm:text-xl md:text-[1.5vw] w-full sm:w-3/4 md:w-1/2 font-light text-gray-600">
               A <span className="font-semibold">software engineer</span> with a
-              focus on web and machine learning
+              focus in machine learning and computer vision.
             </p>
           </Reveal>
           <div className="flex justify-center mt-8 sm:mt-12">

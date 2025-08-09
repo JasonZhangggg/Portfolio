@@ -80,7 +80,7 @@ const Projects = () => {
             <div className="block lg:hidden mb-6">
               <ScrollTitle
                 targetRef={{ current: null }}
-                forceContent={{ number: "02", text: "Playground." }}
+                forceContent={{ number: "02", text: "Sandbox." }}
               />
             </div>
             <Reveal dir="y">
