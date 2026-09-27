@@ -9,7 +9,7 @@ export type Role = {
   url?: string;
 };
 
-export type Link = { label: string; href: string; handle: string };
+export type Link = { label: string; href: string };
 
 export const profile = {
   name: "Jason Zhang",
@@ -23,7 +23,7 @@ export const experience: Role[] = [
     company: "Capital One",
     title: "Associate Software Engineer",
     period: "2026 – Now",
-    summary: "Software engineering on the Card Settlements team.",
+    summary: "Building the settlement systems that move money between cardholders, merchants and card networks.",
     url: "https://www.capitalone.com",
   },
   {
@@ -53,16 +53,11 @@ export const experience: Role[] = [
 ];
 
 export const links: Link[] = [
-  { label: "Email", href: `mailto:${profile.email}`, handle: profile.email },
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/jasonzhang-pdx/",
-    handle: "jasonzhang-pdx",
-  },
-  { label: "GitHub", href: "https://github.com/JasonZhangggg", handle: "JasonZhangggg" },
+  { label: "Email", href: `mailto:${profile.email}` },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/jasonzhang-pdx/" },
+  { label: "GitHub", href: "https://github.com/JasonZhangggg" },
   {
     label: "Resume",
     href: "https://drive.google.com/file/d/1Bz5FL15ggsrPFi1-UWeZ0HRecDpihovq/view?usp=sharing",
-    handle: "Google Drive",
   },
 ];

@@ -290,136 +290,6 @@ button:focus-visible {
   white-space: nowrap;
 }
 
-/* ---------- contact ---------- */
-
-.contacts {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.contact {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  border-top: 1px solid var(--line);
-}
-
-.contact:last-child {
-  border-bottom: 1px solid var(--line);
-}
-
-.contact-link {
-  display: grid;
-  grid-template-columns: auto auto 1fr auto;
-  align-items: center;
-  gap: 12px;
-  min-width: 0;
-  padding: 12px 0;
-  color: var(--fg);
-  text-decoration: none;
-  transition: opacity 200ms ease;
-}
-
-.contact-icon {
-  color: var(--muted);
-  transition: color 150ms ease;
-}
-
-/* Fixed label width so the handles line up in their own column. */
-.contact-label {
-  width: 72px;
-}
-
-/* Narrow phones: the full email matters more than aligned columns. */
-@media (max-width: 420px) {
-  .contact-label {
-    width: auto;
-  }
-  .contact-link {
-    gap: 10px;
-  }
-}
-
-.contact-handle {
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: var(--muted);
-}
-
-.contact-arrow {
-  color: var(--faint);
-  transition:
-    transform 200ms var(--ease-out),
-    color 150ms ease;
-}
-
-.copy {
-  all: unset;
-  display: grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  margin-right: -7px;
-  border-radius: 6px;
-  color: var(--faint);
-  cursor: pointer;
-  transition:
-    color 150ms ease,
-    transform 160ms var(--ease-out);
-  -webkit-tap-highlight-color: transparent;
-}
-
-.copy:active {
-  transform: scale(0.9);
-}
-
-.copy:focus-visible {
-  outline: 2px solid var(--fg);
-  outline-offset: 0;
-}
-
-/* Both icons share a cell; blur bridges the swap so it reads as one morph. */
-.copy-icon {
-  grid-area: 1 / 1;
-  transition:
-    opacity 200ms var(--ease-out),
-    transform 200ms var(--ease-out),
-    filter 200ms var(--ease-out);
-}
-
-.copy-done,
-.copy[data-copied="true"] .copy-idle {
-  opacity: 0;
-  transform: scale(0.6);
-  filter: blur(2px);
-}
-
-.copy[data-copied="true"] .copy-done {
-  opacity: 1;
-  transform: scale(1);
-  filter: blur(0);
-  color: var(--fg);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .contacts:has(.contact-link:hover) .contact-link:not(:hover) {
-    opacity: 0.45;
-  }
-
-  .contact-link:hover .contact-icon,
-  .contact-link:hover .contact-arrow,
-  .copy:hover {
-    color: var(--fg);
-  }
-
-  .contact-link:hover .contact-arrow {
-    transform: translate(2px, -2px);
-  }
-}
-
 /* ---------- load ----------
    The page settles in top to bottom. Plays once per visit, so it can take a little time. */
 
@@ -456,9 +326,7 @@ button:focus-visible {
 
   .role-body,
   .role-body p,
-  .role-icon,
-  .copy-icon,
-  .contact-arrow {
+  .role-icon {
     transition-property: opacity;
   }
 
