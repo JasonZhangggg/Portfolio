@@ -5,43 +5,140 @@
 }
 
 :root {
-  --bg: #ffffff;
-  --fg: #111111;
-  --muted: #6b6b6b;
-  --line: #e6e6e6;
+  --bg: #fcfcfc;
+  --fg: #1a1a1a;
+  --muted: #6f6f6f;
+  --underline: #c9c9c9;
 
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
-  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 
   color-scheme: light dark;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0a0a0a;
-    --fg: #ededed;
-    --muted: #8f8f8f;
-    --line: #232323;
+    --bg: #111111;
+    --fg: #ececec;
+    --muted: #9a9a9a;
+    --underline: #4a4a4a;
   }
 }
 
 html {
   -webkit-text-size-adjust: 100%;
-  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 body {
   margin: 0;
   background: var(--bg);
   color: var(--fg);
-}
-
-a {
-  color: inherit;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.7;
+  letter-spacing: -0.006em;
 }
 
 ::selection {
   background: var(--fg);
   color: var(--bg);
+}
+
+.page {
+  max-width: calc(34rem + 2 * 24px);
+  margin: 0 auto;
+  padding: clamp(64px, 22vh, 220px) 24px 120px;
+}
+
+@media (min-width: 900px) {
+  /* Sit slightly left of center, like a letter on a desk. */
+  .page {
+    margin-left: max(24px, calc(50vw - 30rem));
+  }
+}
+
+.greeting {
+  margin: 0 0 28px;
+  font-size: inherit;
+  font-weight: 500;
+  line-height: inherit;
+}
+
+.prose p {
+  margin: 0 0 20px;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+.prose p:first-child {
+  color: var(--fg);
+}
+
+a {
+  color: var(--fg);
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--underline);
+  transition: text-decoration-color 200ms ease;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  a:hover {
+    text-decoration-color: var(--fg);
+  }
+}
+
+/* ---------- entrance ----------
+   Greeting arrives word by word; paragraphs follow as whole units.
+   Blur bridges the fade so text resolves rather than just appearing. */
+
+.word {
+  display: inline-block;
+  white-space: pre;
+  opacity: 0;
+  filter: blur(6px);
+  transform: translateY(6px);
+  animation: resolve 700ms var(--ease-out) forwards;
+  animation-delay: calc(var(--i) * 70ms + 120ms);
+}
+
+.reveal {
+  opacity: 0;
+  filter: blur(4px);
+  transform: translateY(6px);
+  animation: resolve 800ms var(--ease-out) forwards;
+  animation-delay: calc(var(--i) * 110ms);
+}
+
+@keyframes resolve {
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  to {
+    opacity: 1;
+    filter: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .word,
+  .reveal {
+    transform: none;
+    filter: none;
+    animation-name: fade-in;
+    animation-duration: 300ms;
+  }
 }
