@@ -1,84 +1,69 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
-// Rolls through a few greetings and lands on the last one.
-const WORDS = ["你好", "Hola", "Bonjour", "Ciao", "Hello"];
-// Each step holds a little longer, so the roll decelerates into "Hello".
-const HOLDS = [550, 600, 650, 750];
-const LAST = WORDS.length - 1;
+// Starts on "Hello" so the server-rendered page already reads correctly.
+const WORDS = ["Hello", "你好", "Hola", "Bonjour", "Ciao"];
+
+const TYPE_MS = 110;
+const DELETE_MS = 60;
+const HOLD_MS = 2200; // full word on screen
+const GAP_MS = 350; // empty, before typing the next word
 
 export function Greeting({ name }: { name: string }) {
-  const [index, setIndex] = useState(0);
-  const [prev, setPrev] = useState<number | null>(null);
-  const [widths, setWidths] = useState<number[] | null>(null);
-  const measureRefs = useRef<(HTMLSpanElement | null)[]>([]);
-  const timers = useRef<number[]>([]);
-  const running = useRef(false);
-
-  const play = useCallback((fromStart: boolean) => {
-    if (running.current) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setIndex(LAST);
-      return;
-    }
-    running.current = true;
-    let current = fromStart ? 0 : LAST;
-    let elapsed = 0;
-
-    const steps = fromStart ? HOLDS.map((h, n) => [n + 1, h]) : WORDS.map((_, n) => [n, 500]);
-    steps.forEach(([next, hold], n) => {
-      elapsed += hold;
-      timers.current.push(
-        window.setTimeout(() => {
-          setPrev(current);
-          setIndex(next);
-          current = next;
-          if (n === steps.length - 1) running.current = false;
-        }, elapsed),
-      );
-    });
-  }, []);
+  const [text, setText] = useState(WORDS[0]);
+  const [typing, setTyping] = useState(false);
 
   useEffect(() => {
-    // Measure once fonts are in so the slot width matches each word exactly.
-    document.fonts.ready.then(() => {
-      setWidths(measureRefs.current.map((el) => el?.getBoundingClientRect().width ?? 0));
-    });
-    // Wait for the page's load-in before rolling.
-    timers.current.push(window.setTimeout(() => play(true), 350));
-    const t = timers.current;
-    return () => t.forEach(clearTimeout);
-  }, [play]);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let timer: number;
+    let word = 0;
+    let chars = Array.from(WORDS[0]);
+    let length = chars.length;
+
+    const wait = (ms: number, next: () => void) => {
+      timer = window.setTimeout(next, ms);
+    };
+
+    const erase = () => {
+      setTyping(true);
+      if (length > 0) {
+        length -= 1;
+        setText(chars.slice(0, length).join(""));
+        wait(DELETE_MS, erase);
+      } else {
+        word = (word + 1) % WORDS.length;
+        chars = Array.from(WORDS[word]);
+        setTyping(false);
+        wait(GAP_MS, type);
+      }
+    };
+
+    const type = () => {
+      setTyping(true);
+      if (length < chars.length) {
+        length += 1;
+        setText(chars.slice(0, length).join(""));
+        wait(TYPE_MS, type);
+      } else {
+        setTyping(false);
+        wait(HOLD_MS, erase);
+      }
+    };
+
+    // Let the page finish loading in before the first delete.
+    wait(HOLD_MS + 600, erase);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   return (
-    <h1 className="greeting" aria-label={`Hello, I'm ${name}.`}>
-      <span
-        className="greeting-slot"
-        aria-hidden
-        style={widths ? { width: widths[index] } : undefined}
-        onPointerEnter={(e) => e.pointerType === "mouse" && play(false)}
-        onClick={() => play(false)}
-      >
-        {prev !== null && prev !== index && (
-          <span key={`out-${prev}-${index}`} className="greeting-word is-exiting">
-            {WORDS[prev]}
-          </span>
-        )}
-        <span key={`in-${index}`} className="greeting-word is-entering">
-          {WORDS[index]}
-        </span>
-      </span>
-      <span className="greeting-rest reveal" aria-hidden style={{ "--i": 0 } as React.CSSProperties}>
+    <h1 className="greeting reveal" style={{ "--i": 0 } as React.CSSProperties}>
+      <span className="sr-only">Hello, I&apos;m {name}.</span>
+      <span aria-hidden>
+        <span className="typed">{text}</span>
+        <span className="caret" data-typing={typing} />
         , I&apos;m {name}.
-      </span>
-
-      <span className="greeting-measure" aria-hidden>
-        {WORDS.map((w, n) => (
-          <span key={w} ref={(el) => void (measureRefs.current[n] = el)}>
-            {w}
-          </span>
-        ))}
       </span>
     </h1>
   );

@@ -8,9 +8,12 @@ export function WorkTabs({ roles }: { roles: Role[] }) {
   const [clip, setClip] = useState<string | null>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const panelsRef = useRef<HTMLDivElement>(null);
+  const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [height, setHeight] = useState<number | null>(null);
 
   // The highlight is a styled copy of the tab list, clipped to the active
-  // tab. Animating the clip gives an exact color swap at the pill's edge.
+  // row. Moving the clip sweeps the active color between rows.
   useLayoutEffect(() => {
     const wrap = wrapRef.current;
     if (!wrap) return;
@@ -26,6 +29,22 @@ export function WorkTabs({ roles }: { roles: Role[] }) {
     update();
     const ro = new ResizeObserver(update);
     ro.observe(wrap);
+    return () => ro.disconnect();
+  }, [active]);
+
+  // Panels share a grid cell for the crossfade; size the cell to the active
+  // one so the spacing below the section matches the rest of the page.
+  useLayoutEffect(() => {
+    const panels = panelsRef.current;
+    const panel = panelRefs.current[active];
+    if (!panels || !panel) return;
+    const update = () => {
+      const border = panels.offsetHeight - panels.clientHeight;
+      setHeight(panel.offsetHeight + border);
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(panel);
     return () => ro.disconnect();
   }, [active]);
 
@@ -74,10 +93,16 @@ export function WorkTabs({ roles }: { roles: Role[] }) {
       </div>
 
       {/* Panels share one grid cell, so the height is the tallest and never jumps. */}
-      <div className="panels">
+      <div
+        className="panels"
+        ref={panelsRef}
+        data-measured={height !== null}
+        style={height !== null ? { height } : undefined}
+      >
         {roles.map((role, n) => (
           <div
             key={`${role.company}-${role.period}`}
+            ref={(el) => void (panelRefs.current[n] = el)}
             id={`panel-${n}`}
             role="tabpanel"
             aria-labelledby={`tab-${n}`}
