@@ -1,6 +1,7 @@
 import { type CSSProperties, type ReactNode } from "react";
 import { experience, links, profile } from "@/content/profile";
-import { Experience } from "./components/experience";
+import { Greeting } from "./components/greeting";
+import { WorkTabs } from "./components/work-tabs";
 
 const i = (n: number) => ({ "--i": n }) as CSSProperties;
 
@@ -16,17 +17,9 @@ function A({ href, children }: { href: string; children: ReactNode }) {
 const link = (label: string) => links.find((l) => l.label === label)!;
 
 export default function Home() {
-  const greeting = `Hello, I'm ${profile.name.split(" ")[0]}.`;
-
   return (
     <main className="page">
-      <h1 className="greeting" aria-label={greeting}>
-        {greeting.split("").map((ch, n) => (
-          <span key={n} className="letter" style={i(n)} aria-hidden>
-            {ch === " " ? "\u00a0" : ch}
-          </span>
-        ))}
-      </h1>
+      <Greeting name={profile.name.split(" ")[0]} />
 
       <section className="prose">
         <p className="reveal" style={i(2)}>
@@ -46,14 +39,16 @@ export default function Home() {
         <h2 id="work" className="section-title reveal" style={i(4)}>
           Work
         </h2>
-        <Experience roles={experience} offset={5} />
+        <div className="reveal" style={i(5)}>
+          <WorkTabs roles={experience} />
+        </div>
       </section>
 
       <section aria-labelledby="connect">
-        <h2 id="connect" className="section-title reveal" style={i(5 + experience.length)}>
+        <h2 id="connect" className="section-title reveal" style={i(6)}>
           Connect
         </h2>
-        <p className="prose reveal" style={i(6 + experience.length)}>
+        <p className="prose reveal" style={i(7)}>
           Reach me by <A href={link("Email").href}>email</A>, or find me on{" "}
           <A href={link("LinkedIn").href}>LinkedIn</A> and{" "}
           <A href={link("GitHub").href}>GitHub</A>. My <A href={link("Resume").href}>resume</A>{" "}
@@ -61,7 +56,7 @@ export default function Home() {
         </p>
       </section>
 
-      <footer className="footer reveal" style={i(7 + experience.length)}>
+      <footer className="footer reveal" style={i(8)}>
         © {new Date().getFullYear()} {profile.name}
       </footer>
     </main>

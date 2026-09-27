@@ -11,6 +11,7 @@
   --faint: #a3a3a3;
   --line: #ebebeb;
   --underline: #d0d0d0;
+  --surface: #f0f0f0;
 
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
@@ -27,6 +28,7 @@
     --faint: #5c5c5c;
     --line: #232323;
     --underline: #4a4a4a;
+    --surface: #1f1f1f;
   }
 }
 
@@ -249,6 +251,186 @@ button:focus-visible {
   }
 }
 
+/* ---------- greeting ----------
+   The first word rolls through a few languages and lands on "Hello".
+   Every word shares one grid cell so outgoing and incoming overlap. */
+
+.greeting-slot {
+  display: inline-grid;
+  justify-items: start;
+  cursor: default;
+  transition: width 260ms var(--ease-out);
+  opacity: 0;
+  filter: blur(6px);
+  transform: translateY(0.35em);
+  animation: resolve 700ms var(--ease-out) 60ms forwards;
+}
+
+.greeting-word {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+}
+
+.greeting-word.is-entering {
+  animation: word-in 280ms var(--ease-out) both;
+}
+
+.greeting-word.is-exiting {
+  animation: word-out 200ms var(--ease-out) both;
+}
+
+@keyframes word-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5em);
+    filter: blur(4px);
+  }
+}
+
+@keyframes word-out {
+  to {
+    opacity: 0;
+    transform: translateY(-0.5em);
+    filter: blur(4px);
+  }
+}
+
+.greeting-rest {
+  display: inline-block;
+}
+
+.greeting-measure {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* ---------- work tabs ---------- */
+
+.work {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 560px) {
+  .work {
+    grid-template-columns: 180px 1fr;
+    gap: 24px;
+  }
+}
+
+.tabs-wrap {
+  position: relative;
+  align-self: start;
+  /* Pull the pills out so tab text lines up with the column edge. */
+  margin-left: -10px;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+@media (min-width: 560px) {
+  .tabs {
+    flex-direction: column;
+  }
+}
+
+.tab {
+  all: unset;
+  box-sizing: border-box;
+  display: block;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 15px;
+  line-height: 1.6;
+  white-space: nowrap;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 150ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tabs-highlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: clip-path 300ms var(--ease-out);
+}
+
+.tabs-highlight[data-ready="false"] {
+  opacity: 0;
+}
+
+.tabs-highlight .tab {
+  background: var(--surface);
+  color: var(--fg);
+}
+
+.panels {
+  display: grid;
+}
+
+.panel {
+  grid-area: 1 / 1;
+  padding-top: 4px;
+  opacity: 0;
+  filter: blur(4px);
+  transform: translateY(4px);
+  transition:
+    opacity 150ms ease,
+    filter 150ms ease,
+    transform 150ms ease;
+}
+
+.panel[data-active="true"] {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+  transition:
+    opacity 300ms var(--ease-out) 60ms,
+    filter 300ms var(--ease-out) 60ms,
+    transform 300ms var(--ease-out) 60ms;
+}
+
+.panel-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0 16px;
+  margin: 0 0 6px;
+}
+
+.panel-title {
+  font-weight: 500;
+}
+
+.panel-period {
+  font-size: 14px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.panel-summary {
+  margin: 0 0 8px;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+.panel-link {
+  font-size: 14px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tab:hover {
+    color: var(--fg);
+  }
+}
+
 /* ---------- load ----------
    The name resolves letter by letter, then the page settles in
    top to bottom. Plays once per visit, so it can take a little time. */
@@ -296,7 +478,28 @@ button:focus-visible {
 
   .role-body,
   .role-body p,
-  .role-icon {
+  .role-icon,
+  .panel,
+  .greeting-slot {
     transition-property: opacity;
+  }
+
+  .greeting-slot {
+    transform: none;
+    filter: none;
+    animation-name: fade-in;
+  }
+
+  .greeting-word.is-entering,
+  .greeting-word.is-exiting {
+    animation: none;
+  }
+
+  .greeting-word.is-exiting {
+    display: none;
+  }
+
+  .tabs-highlight {
+    transition: none;
   }
 }
