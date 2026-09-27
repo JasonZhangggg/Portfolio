@@ -31,7 +31,7 @@ export default function Home() {
           real-time camera tracking on top of SLAM maps, and at{" "}
           <A href="https://www.llnl.gov">Lawrence Livermore National Lab</A>, applying machine
           learning to research problems. Lately, I&apos;m most interested in two things:
-          building scalable systems and designing AI-driven workflows.
+          building scalable systems, and designing AI-driven workflows.
         </p>
       </section>
 
