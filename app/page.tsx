@@ -23,15 +23,14 @@ export default function Home() {
 
       <section className="prose">
         <p className="reveal" style={i(2)}>
-          I&apos;m a software engineer at <A href="https://www.capitalone.com">Capital One</A>,
-          building scalable systems for card settlement processing.
+          I&apos;m currently a software engineer at <A href="https://www.capitalone.com">Capital One</A>,
+          building the core systems that process credit card settlements.
         </p>
         <p className="reveal" style={i(3)}>
           Before that, I interned at <A href="https://nianticlabs.com">Niantic</A>, building
           real-time camera tracking on top of SLAM maps, and at{" "}
           <A href="https://www.llnl.gov">Lawrence Livermore National Lab</A>, applying machine
-          learning to research problems. Lately, I&apos;m most interested in two things:
-          building scalable systems, and designing AI-driven workflows.
+          learning to research problems. Lately, I&apos;ve been interested in building scalable systems and AI workflows.
         </p>
       </section>
 
