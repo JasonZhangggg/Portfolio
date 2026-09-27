@@ -23,15 +23,15 @@ export default function Home() {
 
       <section className="prose">
         <p className="reveal" style={i(2)}>
-          I&apos;m an associate software engineer at{" "}
-          <A href="https://www.capitalone.com">Capital One</A>, working on card settlements.
+          I&apos;m a software engineer at <A href="https://www.capitalone.com">Capital One</A>,
+          building scalable systems for card settlement processing.
         </p>
         <p className="reveal" style={i(3)}>
           Before that, I interned at <A href="https://nianticlabs.com">Niantic</A>, building
           real-time camera tracking on top of SLAM maps, and at{" "}
           <A href="https://www.llnl.gov">Lawrence Livermore National Lab</A>, applying machine
-          learning to research problems. Most of what I&apos;ve built sits somewhere between
-          computer vision and machine learning.
+          learning to research problems. Lately, I&apos;m most interested in building systems
+          that scale with AI-driven workflows at their core.
         </p>
       </section>
 
@@ -47,10 +47,10 @@ export default function Home() {
           Connect
         </h2>
         <p className="prose reveal" style={i(6 + experience.length)}>
-          Reach me by <A href={link("Email").href}>email</A>, or find me on{" "}
-          <A href={link("LinkedIn").href}>LinkedIn</A> and{" "}
-          <A href={link("GitHub").href}>GitHub</A>. My <A href={link("Resume").href}>resume</A>{" "}
-          has the longer version.
+          The best way to reach me is by <A href={link("Email").href}>email</A>. You can also
+          find me on <A href={link("LinkedIn").href}>LinkedIn</A> and{" "}
+          <A href={link("GitHub").href}>GitHub</A>, or take a look at my{" "}
+          <A href={link("Resume").href}>resume</A>.
         </p>
       </section>
 
