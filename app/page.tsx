@@ -2,6 +2,7 @@ import { type CSSProperties, type ReactNode } from "react";
 import { experience, links, profile } from "@/content/profile";
 import { Greeting } from "./components/greeting";
 import { Experience } from "./components/experience";
+import { Contact } from "./components/contact";
 
 const i = (n: number) => ({ "--i": n }) as CSSProperties;
 
@@ -13,8 +14,6 @@ function A({ href, children }: { href: string; children: ReactNode }) {
     </a>
   );
 }
-
-const link = (label: string) => links.find((l) => l.label === label)!;
 
 export default function Home() {
   return (
@@ -46,15 +45,10 @@ export default function Home() {
         <h2 id="connect" className="section-title reveal" style={i(5 + experience.length)}>
           Connect
         </h2>
-        <p className="prose reveal" style={i(6 + experience.length)}>
-          Reach me by <A href={link("Email").href}>email</A>, or find me on{" "}
-          <A href={link("LinkedIn").href}>LinkedIn</A> and{" "}
-          <A href={link("GitHub").href}>GitHub</A>. My <A href={link("Resume").href}>resume</A>{" "}
-          has the longer version.
-        </p>
+        <Contact links={links} offset={6 + experience.length} />
       </section>
 
-      <footer className="footer reveal" style={i(7 + experience.length)}>
+      <footer className="footer reveal" style={i(6 + experience.length + links.length)}>
         © {new Date().getFullYear()} {profile.name}
       </footer>
     </main>

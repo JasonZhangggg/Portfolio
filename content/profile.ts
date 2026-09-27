@@ -9,7 +9,7 @@ export type Role = {
   url?: string;
 };
 
-export type Link = { label: string; href: string };
+export type Link = { label: string; href: string; handle: string };
 
 export const profile = {
   name: "Jason Zhang",
@@ -53,11 +53,16 @@ export const experience: Role[] = [
 ];
 
 export const links: Link[] = [
-  { label: "Email", href: `mailto:${profile.email}` },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/jasonzhang-pdx/" },
-  { label: "GitHub", href: "https://github.com/JasonZhangggg" },
+  { label: "Email", href: `mailto:${profile.email}`, handle: profile.email },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/jasonzhang-pdx/",
+    handle: "jasonzhang-pdx",
+  },
+  { label: "GitHub", href: "https://github.com/JasonZhangggg", handle: "JasonZhangggg" },
   {
     label: "Resume",
     href: "https://drive.google.com/file/d/1Bz5FL15ggsrPFi1-UWeZ0HRecDpihovq/view?usp=sharing",
+    handle: "Google Drive",
   },
 ];
