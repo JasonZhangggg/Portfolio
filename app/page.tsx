@@ -30,8 +30,8 @@ export default function Home() {
           Before that, I interned at <A href="https://nianticlabs.com">Niantic</A>, building
           real-time camera tracking on top of SLAM maps, and at{" "}
           <A href="https://www.llnl.gov">Lawrence Livermore National Lab</A>, applying machine
-          learning to research problems. Lately, I&apos;m most interested in building systems
-          that scale with AI-driven workflows at their core.
+          learning to research problems. Lately, I&apos;m most interested in two things:
+          building scalable systems and designing AI-driven workflows.
         </p>
       </section>
 

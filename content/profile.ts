@@ -23,7 +23,7 @@ export const experience: Role[] = [
     company: "Capital One",
     title: "Associate Software Engineer",
     period: "2026 – Now",
-    summary: "Building the settlement systems that move money between cardholders, merchants and card networks.",
+    summary: "Software engineering on the Card Settlements team.",
     url: "https://www.capitalone.com",
   },
   {
