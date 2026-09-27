@@ -6,11 +6,15 @@
 
 :root {
   --bg: #fcfcfc;
-  --fg: #1a1a1a;
-  --muted: #6f6f6f;
-  --underline: #c9c9c9;
+  --fg: #171717;
+  --muted: #737373;
+  --faint: #a3a3a3;
+  --line: #ebebeb;
+  --underline: #d0d0d0;
 
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 
   color-scheme: light dark;
 }
@@ -18,8 +22,10 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: #111111;
-    --fg: #ececec;
-    --muted: #9a9a9a;
+    --fg: #ededed;
+    --muted: #999999;
+    --faint: #5c5c5c;
+    --line: #232323;
     --underline: #4a4a4a;
   }
 }
@@ -35,7 +41,7 @@ body {
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font-sans), system-ui, sans-serif;
-  font-size: 17px;
+  font-size: 16px;
   line-height: 1.7;
   letter-spacing: -0.006em;
 }
@@ -45,28 +51,35 @@ body {
   color: var(--bg);
 }
 
+/* ---------- layout ---------- */
+
 .page {
-  max-width: calc(34rem + 2 * 24px);
+  max-width: calc(36rem + 2 * 24px);
   margin: 0 auto;
-  padding: clamp(64px, 22vh, 220px) 24px 120px;
+  padding: clamp(64px, 16vh, 160px) 24px 80px;
 }
 
-@media (min-width: 900px) {
-  /* Sit slightly left of center, like a letter on a desk. */
-  .page {
-    margin-left: max(24px, calc(50vw - 30rem));
-  }
+.header {
+  margin-bottom: 32px;
 }
 
-.greeting {
-  margin: 0 0 28px;
-  font-size: inherit;
+.name {
+  margin: 0;
+  font-size: 18px;
   font-weight: 500;
-  line-height: inherit;
+  line-height: 1.4;
+  letter-spacing: -0.015em;
 }
 
-.prose p {
-  margin: 0 0 20px;
+.subtitle {
+  margin: 0;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.prose p,
+p.prose {
+  margin: 0 0 16px;
   color: var(--muted);
   text-wrap: pretty;
 }
@@ -74,6 +87,21 @@ body {
 .prose p:first-child {
   color: var(--fg);
 }
+
+.section-title {
+  margin: 56px 0 12px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.footer {
+  margin-top: 72px;
+  font-size: 13px;
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- links ---------- */
 
 a {
   color: var(--fg);
@@ -84,38 +112,173 @@ a {
   transition: text-decoration-color 200ms ease;
 }
 
-a:focus-visible {
+a:focus-visible,
+button:focus-visible {
   outline: 2px solid var(--fg);
   outline-offset: 2px;
-  border-radius: 3px;
+  border-radius: 4px;
+}
+
+/* ---------- work list ---------- */
+
+.roles {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.role {
+  border-top: 1px solid var(--line);
+}
+
+.role:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.role-head {
+  all: unset;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: baseline;
+  gap: 16px;
+  width: 100%;
+  padding: 12px 0;
+  cursor: pointer;
+  transition: opacity 200ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.role-name {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 8px;
+  min-width: 0;
+}
+
+.role-title {
+  color: var(--muted);
+}
+
+/* Phones: company + date on the first line, title gets its own full line. */
+@media (max-width: 559px) {
+  .role-head {
+    grid-template-areas:
+      "company period icon"
+      "title title title";
+    row-gap: 0;
+  }
+  .role-name {
+    display: contents;
+  }
+  .role-company {
+    grid-area: company;
+  }
+  .role-title {
+    grid-area: title;
+  }
+  .role-period {
+    grid-area: period;
+  }
+  .role-icon {
+    grid-area: icon;
+  }
+}
+
+.role-period {
+  font-size: 14px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.role-icon {
+  align-self: center;
+  color: var(--faint);
+  transition:
+    transform 250ms var(--ease-out),
+    color 150ms ease;
+}
+
+.role[data-open="true"] .role-icon {
+  transform: rotate(45deg);
+  color: var(--fg);
+}
+
+/* Height animates via grid rows so it works with any summary length. */
+.role-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 300ms var(--ease-drawer);
+}
+
+.role[data-open="true"] .role-body {
+  grid-template-rows: 1fr;
+}
+
+.role-body-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.role-body p {
+  margin: 0;
+  padding: 0 32px 16px 0;
+  color: var(--muted);
+  opacity: 0;
+  filter: blur(3px);
+  transform: translateY(-4px);
+  /* Closing is quicker than opening: the system responding, not the user deciding. */
+  transition:
+    opacity 150ms ease,
+    filter 150ms ease,
+    transform 150ms ease;
+}
+
+.role[data-open="true"] .role-body p {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+  transition:
+    opacity 300ms var(--ease-out) 60ms,
+    filter 300ms var(--ease-out) 60ms,
+    transform 300ms var(--ease-out) 60ms;
 }
 
 @media (hover: hover) and (pointer: fine) {
   a:hover {
     text-decoration-color: var(--fg);
   }
+
+  /* Focus the hovered row by quieting its neighbors. */
+  .roles:has(.role-head:hover) .role-head:not(:hover) {
+    opacity: 0.45;
+  }
+
+  .role-head:hover .role-icon {
+    color: var(--fg);
+  }
 }
 
-/* ---------- entrance ----------
-   Greeting arrives word by word; paragraphs follow as whole units.
-   Blur bridges the fade so text resolves rather than just appearing. */
+/* ---------- load ----------
+   The name resolves letter by letter, then the page settles in
+   top to bottom. Plays once per visit, so it can take a little time. */
 
-.word {
+.letter {
   display: inline-block;
-  white-space: pre;
   opacity: 0;
   filter: blur(6px);
-  transform: translateY(6px);
+  transform: translateY(0.35em);
   animation: resolve 700ms var(--ease-out) forwards;
-  animation-delay: calc(var(--i) * 70ms + 120ms);
+  animation-delay: calc(var(--i) * 28ms + 80ms);
 }
 
 .reveal {
   opacity: 0;
   filter: blur(4px);
-  transform: translateY(6px);
+  transform: translateY(8px);
   animation: resolve 800ms var(--ease-out) forwards;
-  animation-delay: calc(var(--i) * 110ms);
+  animation-delay: calc(var(--i) * 65ms + 320ms);
 }
 
 @keyframes resolve {
@@ -134,11 +297,17 @@ a:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .word,
+  .letter,
   .reveal {
     transform: none;
     filter: none;
     animation-name: fade-in;
     animation-duration: 300ms;
+  }
+
+  .role-body,
+  .role-body p,
+  .role-icon {
+    transition-property: opacity;
   }
 }
