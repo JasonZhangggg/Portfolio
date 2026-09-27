@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 // Rolls through a few greetings and lands on the last one.
 const WORDS = ["你好", "Hola", "Bonjour", "Ciao", "Hello"];
 // Each step holds a little longer, so the roll decelerates into "Hello".
-const HOLDS = [150, 160, 180, 230];
+const HOLDS = [550, 600, 650, 750];
 const LAST = WORDS.length - 1;
 
 export function Greeting({ name }: { name: string }) {
@@ -26,7 +26,7 @@ export function Greeting({ name }: { name: string }) {
     let current = fromStart ? 0 : LAST;
     let elapsed = 0;
 
-    const steps = fromStart ? HOLDS.map((h, n) => [n + 1, h]) : WORDS.map((_, n) => [n, 140]);
+    const steps = fromStart ? HOLDS.map((h, n) => [n + 1, h]) : WORDS.map((_, n) => [n, 500]);
     steps.forEach(([next, hold], n) => {
       elapsed += hold;
       timers.current.push(

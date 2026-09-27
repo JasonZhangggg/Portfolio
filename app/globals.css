@@ -259,7 +259,7 @@ button:focus-visible {
   display: inline-grid;
   justify-items: start;
   cursor: default;
-  transition: width 260ms var(--ease-out);
+  transition: width 400ms var(--ease-out);
   opacity: 0;
   filter: blur(6px);
   transform: translateY(0.35em);
@@ -272,11 +272,11 @@ button:focus-visible {
 }
 
 .greeting-word.is-entering {
-  animation: word-in 280ms var(--ease-out) both;
+  animation: word-in 450ms var(--ease-out) both;
 }
 
 .greeting-word.is-exiting {
-  animation: word-out 200ms var(--ease-out) both;
+  animation: word-out 320ms var(--ease-out) both;
 }
 
 @keyframes word-in {
@@ -310,7 +310,7 @@ button:focus-visible {
 
 .work {
   display: grid;
-  gap: 16px;
+  gap: 24px;
 }
 
 @media (min-width: 560px) {
@@ -323,37 +323,36 @@ button:focus-visible {
 .tabs-wrap {
   position: relative;
   align-self: start;
-  /* Pull the pills out so tab text lines up with the column edge. */
-  margin-left: -10px;
 }
 
 .tabs {
   display: flex;
-  flex-wrap: wrap;
-  gap: 2px;
-}
-
-@media (min-width: 560px) {
-  .tabs {
-    flex-direction: column;
-  }
+  flex-direction: column;
 }
 
 .tab {
   all: unset;
   box-sizing: border-box;
   display: block;
-  padding: 4px 10px;
-  border-radius: 8px;
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
   font-size: 15px;
   line-height: 1.6;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   color: var(--muted);
   cursor: pointer;
   transition: color 150ms ease;
   -webkit-tap-highlight-color: transparent;
 }
 
+.tab:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+/* A copy of the list in the active color, clipped to the active row. Moving
+   the clip sweeps the color between rows instead of fading two states. */
 .tabs-highlight {
   position: absolute;
   inset: 0;
@@ -366,7 +365,6 @@ button:focus-visible {
 }
 
 .tabs-highlight .tab {
-  background: var(--surface);
   color: var(--fg);
 }
 
@@ -374,9 +372,13 @@ button:focus-visible {
   display: grid;
 }
 
+.panels {
+  border-top: 1px solid var(--line);
+}
+
 .panel {
   grid-area: 1 / 1;
-  padding-top: 4px;
+  padding-top: 10px;
   opacity: 0;
   filter: blur(4px);
   transform: translateY(4px);
@@ -501,5 +503,12 @@ button:focus-visible {
 
   .tabs-highlight {
     transition: none;
+  }
+}
+
+/* Phones: the panel sits under the list, whose last row already has a line. */
+@media (max-width: 559px) {
+  .panels {
+    border-top: none;
   }
 }

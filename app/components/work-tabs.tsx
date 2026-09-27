@@ -21,7 +21,7 @@ export function WorkTabs({ roles }: { roles: Role[] }) {
       const left = tab.offsetLeft;
       const right = wrap.offsetWidth - (left + tab.offsetWidth);
       const bottom = wrap.offsetHeight - (top + tab.offsetHeight);
-      setClip(`inset(${top}px ${right}px ${bottom}px ${left}px round 8px)`);
+      setClip(`inset(${top}px ${right}px ${bottom}px ${left}px)`);
     };
     update();
     const ro = new ResizeObserver(update);
