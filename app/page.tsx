@@ -1,20 +1,34 @@
 import { type CSSProperties, type ReactNode } from "react";
 import { experience, links, profile } from "@/content/profile";
 import { Greeting } from "./components/greeting";
+import { FileText, Mail } from "lucide-react";
+import { GithubIcon, LinkedinIcon } from "./components/brand-icons";
 import { Experience } from "./components/experience";
 
 const i = (n: number) => ({ "--i": n }) as CSSProperties;
 
-function A({ href, children }: { href: string; children: ReactNode }) {
+function A({ href, label, children }: { href: string; label?: string; children: ReactNode }) {
   const external = href.startsWith("http");
   return (
-    <a href={href} {...(external && { target: "_blank", rel: "noopener noreferrer" })}>
+    <a
+      href={href}
+      aria-label={label}
+      title={label}
+      {...(external && { target: "_blank", rel: "noopener noreferrer" })}
+    >
       {children}
     </a>
   );
 }
 
 const link = (label: string) => links.find((l) => l.label === label)!;
+
+const footerLinks = [
+  { label: "Email", Icon: Mail },
+  { label: "LinkedIn", Icon: LinkedinIcon },
+  { label: "GitHub", Icon: GithubIcon },
+  { label: "Resume", Icon: FileText },
+];
 
 export default function Home() {
   return (
@@ -54,7 +68,14 @@ export default function Home() {
       </section>
 
       <footer className="footer reveal" style={i(7 + experience.length)}>
-        © {new Date().getFullYear()} {profile.name}
+        <span>{new Date().getFullYear()}</span>
+        <nav className="footer-icons" aria-label="Contact">
+          {footerLinks.map(({ label, Icon }) => (
+            <A key={label} href={link(label).href} label={label}>
+              <Icon size={16} strokeWidth={1.75} aria-hidden />
+            </A>
+          ))}
+        </nav>
       </footer>
     </main>
   );

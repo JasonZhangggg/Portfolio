@@ -53,10 +53,21 @@ body {
 
 /* ---------- layout ---------- */
 
+/* Exactly one screen tall when the content fits, so there's no scrollbar;
+   the footer rests on the bottom edge and the page only scrolls when the
+   content itself runs past the viewport. */
 .page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100svh;
   max-width: calc(36rem + 2 * 24px);
   margin: 0 auto;
-  padding: clamp(64px, 16vh, 160px) 24px 80px;
+  padding: clamp(48px, 12vh, 160px) 24px 32px;
+}
+
+.page > section:last-of-type {
+  margin-bottom: 48px;
 }
 
 .greeting {
@@ -89,10 +100,50 @@ p.prose {
 }
 
 .footer {
-  margin-top: 48px;
-  font-size: 13px;
-  color: var(--faint);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+  color: var(--muted);
   font-variant-numeric: tabular-nums;
+}
+
+.footer-icons {
+  display: flex;
+  gap: 4px;
+  margin-right: -8px;
+}
+
+/* 32px hit area around a 16px icon. */
+.footer-icons a {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  color: var(--muted);
+  transition:
+    color 150ms ease,
+    transform 160ms var(--ease-out);
+}
+
+.footer-icons a:active {
+  transform: scale(0.92);
+}
+
+/* Bigger tap targets for fingers. */
+@media (pointer: coarse) {
+  .footer-icons {
+    margin-right: -12px;
+  }
+
+  .footer-icons a {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 /* ---------- links ---------- */
@@ -242,6 +293,10 @@ button:focus-visible {
 @media (hover: hover) and (pointer: fine) {
   a:hover {
     text-decoration-color: var(--fg);
+  }
+
+  .footer-icons a:hover {
+    color: var(--fg);
   }
 
   /* Focus the hovered row by quieting its neighbors. */
