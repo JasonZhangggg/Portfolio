@@ -275,27 +275,6 @@ button:focus-visible {
   white-space: pre;
 }
 
-.caret {
-  display: inline-block;
-  width: 1.5px;
-  height: 1.05em;
-  margin: 0 -1px 0 1px;
-  vertical-align: -0.15em;
-  background: currentColor;
-  animation: blink 1.1s steps(1) infinite;
-}
-
-/* Solid while typing or deleting; blink only when idle. */
-.caret[data-typing="true"] {
-  animation: none;
-}
-
-@keyframes blink {
-  50% {
-    opacity: 0;
-  }
-}
-
 .sr-only {
   position: absolute;
   width: 1px;
@@ -343,9 +322,5 @@ button:focus-visible {
   .role-body p,
   .role-icon {
     transition-property: opacity;
-  }
-
-  .caret {
-    animation: none;
   }
 }
