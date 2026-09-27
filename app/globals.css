@@ -11,7 +11,6 @@
   --faint: #a3a3a3;
   --line: #ebebeb;
   --underline: #d0d0d0;
-  --highlight: #fdf0a6;
 
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
@@ -28,7 +27,6 @@
     --faint: #5c5c5c;
     --line: #232323;
     --underline: #4a4a4a;
-    --highlight: rgba(250, 204, 21, 0.2);
   }
 }
 
@@ -113,28 +111,6 @@ button:focus-visible {
   outline: 2px solid var(--fg);
   outline-offset: 2px;
   border-radius: 4px;
-}
-
-/* ---------- highlights ----------
-   A marker stroke that sweeps in once the intro has settled. Each line
-   fragment of a wrapped phrase gets its own stroke via box-decoration-break. */
-
-mark {
-  color: var(--fg);
-  background: linear-gradient(var(--highlight), var(--highlight)) no-repeat 0 60% / 0% 72%;
-  padding: 0 2px;
-  margin: 0 -2px;
-  border-radius: 2px;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-  animation: mark-in 900ms var(--ease-in-out) forwards;
-  animation-delay: calc(var(--i) * 350ms + 1000ms);
-}
-
-@keyframes mark-in {
-  to {
-    background-size: 100% 72%;
-  }
 }
 
 /* ---------- work list ---------- */
@@ -280,6 +256,21 @@ mark {
 
 /* ---------- greeting ---------- */
 
+/* Inverted, selection-style highlight. Width follows the typed text. */
+.highlight {
+  padding: 1px 3px;
+  background: var(--fg);
+  color: var(--bg);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.highlight::selection,
+.highlight *::selection {
+  background: var(--muted);
+  color: var(--bg);
+}
+
 .typed {
   white-space: pre;
 }
@@ -356,10 +347,5 @@ mark {
 
   .caret {
     animation: none;
-  }
-
-  mark {
-    animation: none;
-    background-size: 100% 72%;
   }
 }

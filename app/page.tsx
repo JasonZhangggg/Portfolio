@@ -24,15 +24,14 @@ export default function Home() {
       <section className="prose">
         <p className="reveal" style={i(2)}>
           I&apos;m an associate software engineer at{" "}
-          <A href="https://www.capitalone.com">Capital One</A>, working on{" "}
-          <mark style={i(0)}>card settlements</mark>.
+          <A href="https://www.capitalone.com">Capital One</A>, working on card settlements.
         </p>
         <p className="reveal" style={i(3)}>
-          Before that, I interned at <A href="https://nianticlabs.com">Niantic</A>, building{" "}
-          <mark style={i(1)}>real-time camera tracking</mark> on top of SLAM maps, and at{" "}
+          Before that, I interned at <A href="https://nianticlabs.com">Niantic</A>, building
+          real-time camera tracking on top of SLAM maps, and at{" "}
           <A href="https://www.llnl.gov">Lawrence Livermore National Lab</A>, applying machine
-          learning to research problems. Most of what I&apos;ve built sits somewhere between{" "}
-          <mark style={i(2)}>computer vision and machine learning</mark>.
+          learning to research problems. Most of what I&apos;ve built sits somewhere between
+          computer vision and machine learning.
         </p>
       </section>
 

@@ -60,7 +60,7 @@ export function Greeting({ name }: { name: string }) {
   return (
     <h1 className="greeting reveal" style={{ "--i": 0 } as React.CSSProperties}>
       <span className="sr-only">Hello, I&apos;m {name}.</span>
-      <span aria-hidden>
+      <span className="highlight" aria-hidden>
         <span className="typed">{text}</span>
         <span className="caret" data-typing={typing} />
         , I&apos;m {name}.
