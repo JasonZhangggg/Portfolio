@@ -1,7 +1,7 @@
 import { type CSSProperties, type ReactNode } from "react";
 import { experience, links, profile } from "@/content/profile";
 import { Greeting } from "./components/greeting";
-import { WorkTabs } from "./components/work-tabs";
+import { Experience } from "./components/experience";
 
 const i = (n: number) => ({ "--i": n }) as CSSProperties;
 
@@ -39,16 +39,14 @@ export default function Home() {
         <h2 id="work" className="section-title reveal" style={i(4)}>
           Work
         </h2>
-        <div className="reveal" style={i(5)}>
-          <WorkTabs roles={experience} />
-        </div>
+        <Experience roles={experience} offset={5} />
       </section>
 
       <section aria-labelledby="connect">
-        <h2 id="connect" className="section-title reveal" style={i(6)}>
+        <h2 id="connect" className="section-title reveal" style={i(5 + experience.length)}>
           Connect
         </h2>
-        <p className="prose reveal" style={i(7)}>
+        <p className="prose reveal" style={i(6 + experience.length)}>
           Reach me by <A href={link("Email").href}>email</A>, or find me on{" "}
           <A href={link("LinkedIn").href}>LinkedIn</A> and{" "}
           <A href={link("GitHub").href}>GitHub</A>. My <A href={link("Resume").href}>resume</A>{" "}
@@ -56,7 +54,7 @@ export default function Home() {
         </p>
       </section>
 
-      <footer className="footer reveal" style={i(8)}>
+      <footer className="footer reveal" style={i(7 + experience.length)}>
         © {new Date().getFullYear()} {profile.name}
       </footer>
     </main>

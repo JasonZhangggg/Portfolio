@@ -5,8 +5,7 @@ import { Plus } from "lucide-react";
 import type { Role } from "@/content/profile";
 
 export function Experience({ roles, offset }: { roles: Role[]; offset: number }) {
-  // Capital One starts open so the current role reads without a click.
-  const [open, setOpen] = useState<Set<number>>(() => new Set([0]));
+  const [open, setOpen] = useState<Set<number>>(() => new Set());
 
   const toggle = (n: number) =>
     setOpen((prev) => {

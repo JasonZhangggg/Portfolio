@@ -11,7 +11,6 @@
   --faint: #a3a3a3;
   --line: #ebebeb;
   --underline: #d0d0d0;
-  --surface: #f0f0f0;
 
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
@@ -28,7 +27,6 @@
     --faint: #5c5c5c;
     --line: #232323;
     --underline: #4a4a4a;
-    --surface: #1f1f1f;
   }
 }
 
@@ -292,139 +290,6 @@ button:focus-visible {
   white-space: nowrap;
 }
 
-/* ---------- work tabs ---------- */
-
-.work {
-  display: grid;
-  gap: 24px;
-}
-
-@media (min-width: 560px) {
-  .work {
-    grid-template-columns: 180px 1fr;
-    gap: 24px;
-  }
-}
-
-.tabs-wrap {
-  position: relative;
-  align-self: start;
-}
-
-.tabs {
-  display: flex;
-  flex-direction: column;
-}
-
-.tab {
-  all: unset;
-  box-sizing: border-box;
-  display: block;
-  padding: 10px 0;
-  border-top: 1px solid var(--line);
-  font-size: 15px;
-  line-height: 1.6;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: var(--muted);
-  cursor: pointer;
-  transition: color 150ms ease;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.tab:last-child {
-  border-bottom: 1px solid var(--line);
-}
-
-/* A copy of the list in the active color, clipped to the active row. Moving
-   the clip sweeps the color between rows instead of fading two states. */
-.tabs-highlight {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  transition: clip-path 300ms var(--ease-out);
-}
-
-.tabs-highlight[data-ready="false"] {
-  opacity: 0;
-}
-
-.tabs-highlight .tab {
-  color: var(--fg);
-}
-
-.panels {
-  display: grid;
-}
-
-.panels {
-  border-top: 1px solid var(--line);
-  overflow: hidden;
-}
-
-.panels[data-measured="true"] {
-  transition: height 300ms var(--ease-out);
-}
-
-.panel {
-  grid-area: 1 / 1;
-  align-self: start;
-  padding-top: 10px;
-  opacity: 0;
-  filter: blur(4px);
-  transform: translateY(4px);
-  transition:
-    opacity 150ms ease,
-    filter 150ms ease,
-    transform 150ms ease;
-}
-
-.panel[data-active="true"] {
-  opacity: 1;
-  filter: blur(0);
-  transform: translateY(0);
-  transition:
-    opacity 300ms var(--ease-out) 60ms,
-    filter 300ms var(--ease-out) 60ms,
-    transform 300ms var(--ease-out) 60ms;
-}
-
-.panel-head {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 0 16px;
-  margin: 0 0 6px;
-}
-
-.panel-title {
-  font-weight: 500;
-}
-
-.panel-period {
-  font-size: 14px;
-  color: var(--muted);
-  font-variant-numeric: tabular-nums;
-}
-
-.panel-summary {
-  margin: 0 0 8px;
-  color: var(--muted);
-  text-wrap: pretty;
-}
-
-.panel-link {
-  font-size: 14px;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .tab:hover {
-    color: var(--fg);
-  }
-}
-
 /* ---------- load ----------
    The page settles in top to bottom. Plays once per visit, so it can take a little time. */
 
@@ -461,24 +326,11 @@ button:focus-visible {
 
   .role-body,
   .role-body p,
-  .role-icon,
-  .panel,
-  .panels {
+  .role-icon {
     transition-property: opacity;
   }
 
   .caret {
     animation: none;
-  }
-
-  .tabs-highlight {
-    transition: none;
-  }
-}
-
-/* Phones: the panel sits under the list, whose last row already has a line. */
-@media (max-width: 559px) {
-  .panels {
-    border-top: none;
   }
 }
