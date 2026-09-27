@@ -53,10 +53,21 @@ body {
 
 /* ---------- layout ---------- */
 
+/* Exactly one screen tall when the content fits, so there's no scrollbar;
+   the footer rests on the bottom edge and the page only scrolls when the
+   content itself runs past the viewport. */
 .page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100svh;
   max-width: calc(36rem + 2 * 24px);
   margin: 0 auto;
-  padding: clamp(64px, 16vh, 160px) 24px 80px;
+  padding: clamp(48px, 12vh, 160px) 24px 32px;
+}
+
+.page > section:last-of-type {
+  margin-bottom: 48px;
 }
 
 .greeting {
@@ -92,7 +103,7 @@ p.prose {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 48px;
+  margin-top: auto;
   padding-top: 16px;
   border-top: 1px solid var(--line);
   font-size: 14px;
@@ -121,6 +132,18 @@ p.prose {
 
 .footer-icons a:active {
   transform: scale(0.92);
+}
+
+/* Bigger tap targets for fingers. */
+@media (pointer: coarse) {
+  .footer-icons {
+    margin-right: -12px;
+  }
+
+  .footer-icons a {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 /* ---------- links ---------- */
