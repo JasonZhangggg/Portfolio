@@ -2,4 +2,7 @@
 
 Welcome to my portfolio! You can check it out [here](https://jasonzhangggg.github.io/Portfolio/).
 
+Built with Next.js (static export). `npm run dev` to develop, `npm run deploy` to publish to GitHub Pages.
+All content lives in `content/profile.ts`.
+
 Feel free to contact me at mailtojason.zhang@gmail.com
