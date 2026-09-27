@@ -89,10 +89,38 @@ p.prose {
 }
 
 .footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 48px;
-  font-size: 13px;
-  color: var(--faint);
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+  color: var(--muted);
   font-variant-numeric: tabular-nums;
+}
+
+.footer-icons {
+  display: flex;
+  gap: 4px;
+  margin-right: -8px;
+}
+
+/* 32px hit area around a 16px icon. */
+.footer-icons a {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  color: var(--muted);
+  transition:
+    color 150ms ease,
+    transform 160ms var(--ease-out);
+}
+
+.footer-icons a:active {
+  transform: scale(0.92);
 }
 
 /* ---------- links ---------- */
@@ -242,6 +270,10 @@ button:focus-visible {
 @media (hover: hover) and (pointer: fine) {
   a:hover {
     text-decoration-color: var(--fg);
+  }
+
+  .footer-icons a:hover {
+    color: var(--fg);
   }
 
   /* Focus the hovered row by quieting its neighbors. */
