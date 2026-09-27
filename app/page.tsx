@@ -16,35 +16,29 @@ function A({ href, children }: { href: string; children: ReactNode }) {
 const link = (label: string) => links.find((l) => l.label === label)!;
 
 export default function Home() {
-  const letters = profile.name.split("");
+  const greeting = `Hello, I'm ${profile.name.split(" ")[0]}.`;
 
   return (
     <main className="page">
-      <header className="header">
-        <h1 className="name" aria-label={profile.name}>
-          {letters.map((ch, n) => (
-            <span key={n} className="letter" style={i(n)} aria-hidden>
-              {ch === " " ? " " : ch}
-            </span>
-          ))}
-        </h1>
-        <p className="subtitle reveal" style={i(1)}>
-          {profile.role}
-        </p>
-      </header>
+      <h1 className="greeting" aria-label={greeting}>
+        {greeting.split("").map((ch, n) => (
+          <span key={n} className="letter" style={i(n)} aria-hidden>
+            {ch === " " ? "\u00a0" : ch}
+          </span>
+        ))}
+      </h1>
 
       <section className="prose">
         <p className="reveal" style={i(2)}>
-          Hello, I&apos;m Jason. I&apos;m an associate software engineer at{" "}
+          I&apos;m an associate software engineer at{" "}
           <A href="https://www.capitalone.com">Capital One</A>, working on card settlements.
         </p>
         <p className="reveal" style={i(3)}>
-          Before that I studied computer science and engineering at Ohio State, where I did
-          machine learning research on 3D perception for self-driving cars. Along the way I
-          interned at <A href="https://nianticlabs.com">Niantic</A>,{" "}
-          <A href="https://www.llnl.gov">Lawrence Livermore</A> and{" "}
-          <A href="https://www.cmu.edu">Carnegie Mellon</A>, mostly working on computer vision
-          and machine learning.
+          Before that, I interned at <A href="https://nianticlabs.com">Niantic</A>, building
+          real-time camera tracking on top of SLAM maps, and at{" "}
+          <A href="https://www.llnl.gov">Lawrence Livermore National Lab</A>, applying machine
+          learning to research problems. Most of what I&apos;ve built sits somewhere between
+          computer vision and machine learning.
         </p>
       </section>
 

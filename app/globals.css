@@ -59,22 +59,11 @@ body {
   padding: clamp(64px, 16vh, 160px) 24px 80px;
 }
 
-.header {
-  margin-bottom: 32px;
-}
-
-.name {
-  margin: 0;
-  font-size: 18px;
+.greeting {
+  margin: 0 0 20px;
+  font-size: 16px;
   font-weight: 500;
-  line-height: 1.4;
-  letter-spacing: -0.015em;
-}
-
-.subtitle {
-  margin: 0;
-  color: var(--muted);
-  font-style: italic;
+  line-height: inherit;
 }
 
 .prose p,

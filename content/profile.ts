@@ -13,7 +13,6 @@ export type Link = { label: string; href: string };
 
 export const profile = {
   name: "Jason Zhang",
-  role: "Software Engineer",
   tagline: "Software engineer working on payments, machine learning and computer vision.",
   email: "mailtojason.zhang@gmail.com",
 };
@@ -44,28 +43,12 @@ export const experience: Role[] = [
     url: "https://cse.osu.edu",
   },
   {
-    company: "Lawrence Livermore National Lab",
+    company: "Lawrence Livermore",
     title: "Software Engineering Intern",
-    period: "2024",
+    period: "2023 – 2024",
     summary:
-      "Refactored a research codebase around OOP with inter-step visualization, and built a trainer with hooks for dead-neuron detection that led to a new residual architecture with lower loss.",
+      "Two summers applying machine learning to research problems. Built a training framework with hooks for dead-neuron detection that led to a new residual architecture with lower loss, and optimized laser powder bed fusion parameters for complex geometries using photodiode-based models.",
     url: "https://www.llnl.gov",
-  },
-  {
-    company: "Lawrence Livermore National Lab",
-    title: "Defense Science & Technology Intern",
-    period: "2023",
-    summary:
-      "Optimized laser powder bed fusion parameters for complex geometries using photodiode-based machine learning.",
-    url: "https://www.llnl.gov",
-  },
-  {
-    company: "Carnegie Mellon University",
-    title: "Research Intern",
-    period: "2021 – 2022",
-    summary:
-      "Built an NLP pipeline to extract and classify tables and their metadata from PDFs, integrated with a cloud database and custom search.",
-    url: "https://www.cmu.edu",
   },
 ];
 
