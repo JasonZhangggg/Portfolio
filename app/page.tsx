@@ -4,6 +4,7 @@ import { Greeting } from "./components/greeting";
 import { FileText, Mail } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "./components/brand-icons";
 import { Experience } from "./components/experience";
+import { ThemeToggle } from "./components/theme-toggle";
 
 const i = (n: number) => ({ "--i": n }) as CSSProperties;
 
@@ -33,6 +34,9 @@ const footerLinks = [
 export default function Home() {
   return (
     <main className="page">
+      <div className="theme-slot reveal" style={i(1)}>
+        <ThemeToggle />
+      </div>
       <Greeting name={profile.name.split(" ")[0]} />
 
       <section className="prose">
