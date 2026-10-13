@@ -16,17 +16,30 @@
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 
-  color-scheme: light dark;
+  color-scheme: light;
+}
+
+/* data-theme is set before paint by the inline script in layout.tsx; the media
+   query only covers the no-JS case. */
+:root[data-theme="dark"] {
+  --bg: #111111;
+  --fg: #ededed;
+  --muted: #999999;
+  --faint: #5c5c5c;
+  --line: #232323;
+  --underline: #4a4a4a;
+  color-scheme: dark;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme]) {
     --bg: #111111;
     --fg: #ededed;
     --muted: #999999;
     --faint: #5c5c5c;
     --line: #232323;
     --underline: #4a4a4a;
+    color-scheme: dark;
   }
 }
 
@@ -57,6 +70,7 @@ body {
    the footer rests on the bottom edge and the page only scrolls when the
    content itself runs past the viewport. */
 .page {
+  position: relative;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -345,6 +359,88 @@ button:focus-visible {
   white-space: nowrap;
 }
 
+/* ---------- theme toggle ---------- */
+
+.theme-slot {
+  position: absolute;
+  top: 20px;
+  right: 16px;
+}
+
+.theme-toggle {
+  all: unset;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  color: var(--muted);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    color 150ms ease,
+    transform 160ms var(--ease-out);
+}
+
+.theme-toggle:active {
+  transform: scale(0.9);
+}
+
+/* Sun in light mode. In dark mode the rays retract, the core grows, and a
+   second circle slides in through the mask to bite it into a moon. */
+.theme-icon,
+.theme-core,
+.theme-bite,
+.theme-rays {
+  transform-origin: 12px 12px;
+  transition:
+    transform 500ms var(--ease-out),
+    opacity 250ms ease;
+}
+
+.theme-core {
+  transform: scale(0.45);
+}
+
+.theme-bite {
+  transform: translate(10px, -10px);
+}
+
+.theme-rays {
+  transition-delay: 120ms;
+}
+
+[data-theme="dark"] .theme-icon {
+  transform: rotate(-40deg);
+}
+
+[data-theme="dark"] .theme-core {
+  transform: scale(1);
+}
+
+[data-theme="dark"] .theme-bite {
+  transform: translate(0, 0);
+}
+
+[data-theme="dark"] .theme-rays {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.4);
+  transition-delay: 0ms;
+}
+
+/* The new theme grows out of the toggle as a circle (see theme-toggle.tsx). */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .theme-toggle:hover {
+    color: var(--fg);
+  }
+}
+
 /* ---------- load ----------
    The page settles in top to bottom. Plays once per visit, so it can take a little time. */
 
@@ -381,7 +477,11 @@ button:focus-visible {
 
   .role-body,
   .role-body p,
-  .role-icon {
+  .role-icon,
+  .theme-icon,
+  .theme-core,
+  .theme-bite,
+  .theme-rays {
     transition-property: opacity;
   }
 
