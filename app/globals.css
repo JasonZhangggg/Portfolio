@@ -363,69 +363,106 @@ button:focus-visible {
 
 .theme-slot {
   position: absolute;
-  top: 20px;
-  right: 16px;
+  top: 16px;
+  right: 12px;
 }
 
 .theme-toggle {
   all: unset;
   display: grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
+  width: 44px;
+  height: 44px;
   color: var(--muted);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  transition:
-    color 150ms ease,
-    transform 160ms var(--ease-out);
+  transition: transform 200ms var(--ease-out);
 }
 
 .theme-toggle:active {
   transform: scale(0.9);
+  transition-duration: 140ms;
 }
 
-/* Sun in light mode. In dark mode the rays retract, the core grows, and a
-   second circle slides in through the mask to bite it into a moon. */
-.theme-icon,
-.theme-core,
-.theme-bite,
-.theme-rays {
-  transform-origin: 12px 12px;
+.theme-face {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+}
+
+.theme-face > * {
+  grid-area: 1 / 1;
+}
+
+/* The sun and moon trade places with a turn: the one leaving spins out and shrinks. */
+.theme-icon {
+  display: block;
+  overflow: visible;
   transition:
-    transform 500ms var(--ease-out),
-    opacity 250ms ease;
+    transform 460ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 200ms ease;
 }
 
-.theme-core {
-  transform: scale(0.45);
+.theme-icon * {
+  transform-box: fill-box;
+  transform-origin: center;
 }
 
-.theme-bite {
-  transform: translate(10px, -10px);
-}
-
-.theme-rays {
-  transition-delay: 120ms;
-}
-
-[data-theme="dark"] .theme-icon {
-  transform: rotate(-40deg);
-}
-
-[data-theme="dark"] .theme-core {
-  transform: scale(1);
-}
-
-[data-theme="dark"] .theme-bite {
-  transform: translate(0, 0);
-}
-
-[data-theme="dark"] .theme-rays {
+.theme-moon,
+[data-theme="dark"] .theme-sun {
   opacity: 0;
+}
+
+.theme-moon {
   transform: rotate(-90deg) scale(0.4);
-  transition-delay: 0ms;
+}
+
+[data-theme="dark"] .theme-sun {
+  transform: rotate(90deg) scale(0.4);
+}
+
+[data-theme="dark"] .theme-moon {
+  opacity: 1;
+  transform: none;
+}
+
+/* Hover or press replays the icon: rays fan in one by one, the moon wiggles. */
+@media (prefers-reduced-motion: no-preference) {
+  .theme-toggle[data-play] .ray {
+    animation: theme-ray 300ms var(--ease-out) var(--d) both;
+  }
+
+  .theme-toggle[data-play] .theme-moon path {
+    animation: theme-wiggle 640ms var(--ease-in-out) 120ms;
+  }
+}
+
+@keyframes theme-ray {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes theme-wiggle {
+  20% {
+    transform: rotate(-10deg);
+  }
+  40% {
+    transform: rotate(10deg);
+  }
+  60% {
+    transform: rotate(-5deg);
+  }
+  80% {
+    transform: rotate(5deg);
+  }
+}
+
+/* No color may be mid-fade when the circle reveals the new theme. The toggle's icons keep their own turn. */
+[data-theme-flip] *:not(.theme-icon) {
+  transition: none !important;
 }
 
 /* The new theme grows out of the toggle as a circle (see theme-toggle.tsx). */
@@ -433,12 +470,6 @@ button:focus-visible {
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .theme-toggle:hover {
-    color: var(--fg);
-  }
 }
 
 /* ---------- load ----------
@@ -477,12 +508,13 @@ button:focus-visible {
 
   .role-body,
   .role-body p,
-  .role-icon,
-  .theme-icon,
-  .theme-core,
-  .theme-bite,
-  .theme-rays {
+  .role-icon {
     transition-property: opacity;
+  }
+
+  .theme-icon {
+    transform: none !important;
+    transition: opacity 160ms ease;
   }
 
   .caret {
