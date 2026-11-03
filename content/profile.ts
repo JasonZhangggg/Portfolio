@@ -7,6 +7,8 @@ export type Role = {
   period: string;
   summary: string;
   url?: string;
+  // Source code, shown as a GitHub link after the site.
+  source?: string;
 };
 
 export type Link = { label: string; href: string };
@@ -49,6 +51,19 @@ export const experience: Role[] = [
     summary:
       "Two summers applying machine learning to research problems. Built a training framework with hooks for dead-neuron detection that led to a new residual architecture with lower loss, and optimized laser powder bed fusion parameters for complex geometries using photodiode-based models.",
     url: "https://www.llnl.gov",
+  },
+];
+
+// Newest first.
+export const projects: Role[] = [
+  {
+    company: "SplitWith",
+    title: "Split a receipt from a photo",
+    period: "2026",
+    summary:
+      "A free receipt splitter. Snap a photo of the receipt, share a link, and friends tap what they had and pay you back on Venmo, Cash App, PayPal or Zelle. No app or sign-up.",
+    url: "https://splitwith.dev",
+    source: "https://github.com/JasonZhangggg/receipt-splitter",
   },
 ];
 
