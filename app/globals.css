@@ -323,89 +323,6 @@ button:focus-visible {
   }
 }
 
-/* ---------- projects ----------
-   Same rhythm as the work list, but each row links out. */
-
-.projects {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.project {
-  border-top: 1px solid var(--line);
-}
-
-.project:last-child {
-  border-bottom: 1px solid var(--line);
-}
-
-.project-link {
-  display: grid;
-  grid-template-columns: auto 1fr auto auto;
-  align-items: baseline;
-  column-gap: 8px;
-  padding: 12px 0;
-  text-decoration: none;
-  transition: opacity 200ms ease;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.project-description {
-  min-width: 0;
-  color: var(--muted);
-}
-
-.project-year {
-  margin-left: 8px;
-  font-size: 14px;
-  color: var(--muted);
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-}
-
-.project-icon {
-  align-self: center;
-  margin-left: 8px;
-  color: var(--faint);
-  transition:
-    transform 250ms var(--ease-out),
-    color 150ms ease;
-}
-
-/* Phones: name + year on the first line, description gets its own full line. */
-@media (max-width: 559px) {
-  .project-link {
-    grid-template-columns: 1fr auto auto;
-    grid-template-areas:
-      "name year icon"
-      "description description description";
-  }
-  .project-name {
-    grid-area: name;
-  }
-  .project-description {
-    grid-area: description;
-  }
-  .project-year {
-    grid-area: year;
-  }
-  .project-icon {
-    grid-area: icon;
-  }
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .projects:has(.project-link:hover) .project-link:not(:hover) {
-    opacity: 0.45;
-  }
-
-  .project-link:hover .project-icon {
-    color: var(--fg);
-    transform: translate(2px, -2px);
-  }
-}
-
 /* ---------- greeting ---------- */
 
 .typed {
@@ -591,8 +508,7 @@ button:focus-visible {
 
   .role-body,
   .role-body p,
-  .role-icon,
-  .project-icon {
+  .role-icon {
     transition-property: opacity;
   }
 

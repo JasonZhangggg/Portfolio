@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, type CSSProperties } from "react";
+import { useId, useState, type CSSProperties } from "react";
 import { Plus } from "lucide-react";
 import type { Role } from "@/content/profile";
 
 export function Experience({ roles, offset }: { roles: Role[]; offset: number }) {
+  const list = useId();
   const [open, setOpen] = useState<Set<number>>(() => new Set());
 
   const toggle = (n: number) =>
@@ -19,7 +20,7 @@ export function Experience({ roles, offset }: { roles: Role[]; offset: number })
     <ul className="roles">
       {roles.map((role, n) => {
         const isOpen = open.has(n);
-        const id = `role-${n}`;
+        const id = `${list}-${n}`;
         return (
           <li
             key={`${role.company}-${role.period}`}
@@ -50,6 +51,14 @@ export function Experience({ roles, offset }: { roles: Role[]; offset: number })
                       {" "}
                       <a href={role.url} target="_blank" rel="noopener noreferrer">
                         {new URL(role.url).hostname.replace(/^www\./, "")}
+                      </a>
+                    </>
+                  )}
+                  {role.source && (
+                    <>
+                      {role.url ? " · " : " "}
+                      <a href={role.source} target="_blank" rel="noopener noreferrer">
+                        GitHub
                       </a>
                     </>
                   )}

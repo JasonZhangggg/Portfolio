@@ -1,7 +1,7 @@
 import { type CSSProperties, type ReactNode } from "react";
 import { experience, links, profile, projects } from "@/content/profile";
 import { Greeting } from "./components/greeting";
-import { ArrowUpRight, FileText, Mail } from "lucide-react";
+import { FileText, Mail } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "./components/brand-icons";
 import { Experience } from "./components/experience";
 import { ThemeToggle } from "./components/theme-toggle";
@@ -67,18 +67,7 @@ export default function Home() {
         <h2 id="projects" className="section-title reveal" style={i(afterWork)}>
           Projects
         </h2>
-        <ul className="projects">
-          {projects.map((project, n) => (
-            <li key={project.name} className="project reveal" style={i(afterWork + 1 + n)}>
-              <a href={project.url} target="_blank" rel="noopener noreferrer" className="project-link">
-                <span className="project-name">{project.name}</span>
-                <span className="project-description">{project.description}</span>
-                <span className="project-year">{project.year}</span>
-                <ArrowUpRight className="project-icon" size={14} strokeWidth={1.75} aria-hidden />
-              </a>
-            </li>
-          ))}
-        </ul>
+        <Experience roles={projects} offset={afterWork + 1} />
       </section>
 
       <section aria-labelledby="connect">
