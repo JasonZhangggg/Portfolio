@@ -1,7 +1,7 @@
 import { type CSSProperties, type ReactNode } from "react";
-import { experience, links, profile } from "@/content/profile";
+import { experience, links, profile, projects } from "@/content/profile";
 import { Greeting } from "./components/greeting";
-import { FileText, Mail } from "lucide-react";
+import { ArrowUpRight, FileText, Mail } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "./components/brand-icons";
 import { Experience } from "./components/experience";
 import { ThemeToggle } from "./components/theme-toggle";
@@ -23,6 +23,10 @@ function A({ href, label, children }: { href: string; label?: string; children: 
 }
 
 const link = (label: string) => links.find((l) => l.label === label)!;
+
+// Stagger slots after the work list.
+const afterWork = 5 + experience.length;
+const afterProjects = afterWork + 1 + projects.length;
 
 const footerLinks = [
   { label: "Email", Icon: Mail },
@@ -59,11 +63,29 @@ export default function Home() {
         <Experience roles={experience} offset={5} />
       </section>
 
+      <section aria-labelledby="projects">
+        <h2 id="projects" className="section-title reveal" style={i(afterWork)}>
+          Projects
+        </h2>
+        <ul className="projects">
+          {projects.map((project, n) => (
+            <li key={project.name} className="project reveal" style={i(afterWork + 1 + n)}>
+              <a href={project.url} target="_blank" rel="noopener noreferrer" className="project-link">
+                <span className="project-name">{project.name}</span>
+                <span className="project-description">{project.description}</span>
+                <span className="project-year">{project.year}</span>
+                <ArrowUpRight className="project-icon" size={14} strokeWidth={1.75} aria-hidden />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+
       <section aria-labelledby="connect">
-        <h2 id="connect" className="section-title reveal" style={i(5 + experience.length)}>
+        <h2 id="connect" className="section-title reveal" style={i(afterProjects)}>
           Connect
         </h2>
-        <p className="prose reveal" style={i(6 + experience.length)}>
+        <p className="prose reveal" style={i(afterProjects + 1)}>
           The best way to reach me is by <A href={link("Email").href}>email</A>. You can also
           find me on <A href={link("LinkedIn").href}>LinkedIn</A> and{" "}
           <A href={link("GitHub").href}>GitHub</A>, or take a look at my{" "}
@@ -71,7 +93,7 @@ export default function Home() {
         </p>
       </section>
 
-      <footer className="footer reveal" style={i(7 + experience.length)}>
+      <footer className="footer reveal" style={i(afterProjects + 2)}>
         <span>{new Date().getFullYear()}</span>
         <nav className="footer-icons" aria-label="Contact">
           {footerLinks.map(({ label, Icon }) => (

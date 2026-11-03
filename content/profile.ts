@@ -9,6 +9,13 @@ export type Role = {
   url?: string;
 };
 
+export type Project = {
+  name: string;
+  description: string;
+  year: string;
+  url: string;
+};
+
 export type Link = { label: string; href: string };
 
 export const profile = {
@@ -49,6 +56,16 @@ export const experience: Role[] = [
     summary:
       "Two summers applying machine learning to research problems. Built a training framework with hooks for dead-neuron detection that led to a new residual architecture with lower loss, and optimized laser powder bed fusion parameters for complex geometries using photodiode-based models.",
     url: "https://www.llnl.gov",
+  },
+];
+
+// Newest first.
+export const projects: Project[] = [
+  {
+    name: "SplitWith",
+    description: "Split a receipt from a photo",
+    year: "2026",
+    url: "https://splitwith.dev",
   },
 ];
 
